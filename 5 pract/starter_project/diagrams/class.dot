@@ -1,0 +1,11 @@
+digraph ClassDiagram {
+    rankdir=TB;
+    node [shape=record, style=filled, fillcolor=lightyellow, fontname="Arial", fontsize=10];
+    edge [color=black, fontname="Arial", fontsize=9];
+    
+    TimesheetAnalyzer [label="{TimesheetAnalyzer|+ parseHours(String line): int[]|+ total(int[] hours): int|+ average(int[] hours): double|+ overtimeDays(int[] hours): int|+ weeklyOvertime(int[] hours): int|+ addPayForWeek(int[] hours, double rate): double}", width=3];
+    
+    SelfCheck [label="{SelfCheck|- passedTests: int|- totalTests: int|+ main(String[] args): void|- runUnitTests(): void|- runDataDrivenTests(): void|- runInteractiveMode(): void}", width=3];
+    
+    SelfCheck -> TimesheetAnalyzer [label="вызывает методы", style=dashed];
+}
