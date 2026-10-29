@@ -1,0 +1,31 @@
+digraph C {
+    graph [rankdir=LR, bgcolor="white", pad=0.3, nodesep=0.5, ranksep=0.6];
+    node [shape=record, style="filled", fontname="Times New Roman", fontsize=10, color="#2F5597", fillcolor="#F7FBFF"];
+    edge [fontname="Times New Roman", fontsize=9, color="#555555"];
+
+    Product [label="{Product|- id : String\n- name : String\n- price : double|+ getId() : String\n+ getName() : String\n+ getPrice() : double}", fillcolor="#E4DFEC", color="#7030A0"];
+    
+    OrderItem [label="{OrderItem|- product : Product\n- quantity : int|+ increase(delta : int) : void\n+ getLineTotal() : double\n+ getProduct() : Product\n+ getQuantity() : int}", fillcolor="#E4DFEC", color="#7030A0"];
+    
+    OrderStatus [label="{OrderStatus||DRAFT\lCONFIRMED\l}", fillcolor="#E4DFEC", color="#7030A0"];
+    
+    Employee [label="{Employee (record)|- id : String\n- fullName : String}", fillcolor="#E4DFEC", color="#7030A0"];
+
+    Order [label="{Order|- employee : Employee\n- items : List<OrderItem>\n- status : OrderStatus|+ addProduct(p, q) : void\n+ removeProduct(id) : void\n+ total() : double\n+ confirm() : void\n+ getItems() : List<OrderItem>}", fillcolor="#FDE9E7", color="#C00000"];
+
+    OrderService [label="{OrderService|- repository : OrderRepository|+ createOrder(e : Employee) : Order}", fillcolor="#E1F5FE", color="#0277BD"];
+
+    // ВАРИАНТ 26: Репозиторий
+    OrderRepository [label="{OrderRepository (V26)|- orders : List<Order>|+ save(order : Order) : void\n+ findAll() : List<Order>}", fillcolor="#E8F5E9", color="#2E7D32"];
+
+    SelfCheck [label="{SelfCheck||+ main(String[]) : void\n+ addRepositoryCount(repo) : int}", fillcolor="#FFF3E0", color="#EF6C00"];
+
+    OrderItem -> Product [label="содержит", style=dashed, arrowhead=open];
+    Order -> OrderItem [label="содержит List", style=dashed, arrowhead=open];
+    Order -> OrderStatus [label="статус", style=dashed, arrowhead=open];
+    Order -> Employee [label="владелец", style=dashed, arrowhead=open];
+    OrderService -> Order [label="создает", style=dashed, arrowhead=open];
+    OrderService -> OrderRepository [label="сохраняет", style=dashed, arrowhead=open];
+    SelfCheck -> OrderService [label="тестирует", style=dashed, arrowhead=open];
+    SelfCheck -> OrderRepository [label="проверяет V26", style=dashed, arrowhead=open];
+}

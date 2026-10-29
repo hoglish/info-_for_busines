@@ -1,0 +1,18 @@
+digraph C {
+    graph [rankdir=LR, bgcolor="white", pad=0.3, nodesep=0.5, ranksep=0.6];
+    node [shape=record, style="filled", fontname="Times New Roman", fontsize=10, color="#2F5597", fillcolor="#F7FBFF"];
+    edge [fontname="Times New Roman", fontsize=9, color="#555555"];
+
+    TripStatus [label="{TripStatus||DRAFT\lSUBMITTED\lAPPROVED\lREJECTED\lCANCELLED\lCOMPLETED\l}", fillcolor="#E4DFEC", color="#7030A0"];
+
+    BusinessTrip [label="{BusinessTrip|- id : String\n- start : LocalDate\n- end : LocalDate\n- status : TripStatus\n- rejectionReason : String|+ BusinessTrip(id, start, end)\n+ submit() : void\n+ approve() : void\n+ reject(reason : String) : void\n+ cancel() : void\n+ complete(today : LocalDate) : void\n+ getStatus() : TripStatus\n+ getRejectionReason() : String}", fillcolor="#FDE9E7", color="#C00000"];
+
+    BusinessTripService [label="{BusinessTripService\n(Variant 26)|- trips : List<BusinessTrip>|+ create(id, start, end) : BusinessTrip\n+ findByStatus(status) : List<BusinessTrip>\n+ findAll() : List<BusinessTrip>}", fillcolor="#E1F5FE", color="#0277BD"];
+
+    SelfCheck [label="{SelfCheck||+ main(String[]) : void\n+ addActiveTripsCount(service) : int}", fillcolor="#FFF3E0", color="#EF6C00"];
+
+    BusinessTrip -> TripStatus [label="использует", style=dashed, arrowhead=open];
+    BusinessTripService -> BusinessTrip [label="создаёт/хранит", style=dashed, arrowhead=open];
+    SelfCheck -> BusinessTripService [label="тестирует", style=dashed, arrowhead=open];
+    SelfCheck -> BusinessTrip [label="тестирует", style=dashed, arrowhead=open];
+}
