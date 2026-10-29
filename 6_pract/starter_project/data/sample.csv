@@ -1,0 +1,25 @@
+# amount;urgent;risk;personal;expected
+10000;true;LOW;false;FAST_TRACK
+500000;false;LOW;false;FINANCE_REVIEW
+500001;false;LOW;false;FINANCE_REVIEW
+499999;true;LOW;false;FAST_TRACK
+10000;false;LOW;false;STANDARD
+10000;false;MEDIUM;false;STANDARD
+10000;true;HIGH;false;DIRECTOR_REVIEW
+10000;false;LOW;true;SECURITY_REVIEW
+# ВАРИАНТ 26: Запрет Urgent+Personal (Часть А)
+10000;true;LOW;true;ERROR
+10000;false;HIGH;true;SECURITY_REVIEW
+600000;true;LOW;false;FINANCE_REVIEW
+600000;false;HIGH;false;DIRECTOR_REVIEW
+10000;true;HIGH;true;ERROR
+0;false;LOW;false;STANDARD
+-1;true;LOW;false;ERROR
+10000;true;null;false;ERROR
+# ВАРИАНТ 26: Дополнительные тесты для Части А
+10000;false;LOW;true;SECURITY_REVIEW
+# ВАРИАНТ 26: Тесты для Части Б (логика допустимости)
+# Формат: amount;urgent;risk;personal;expected_route|check_result
+# Для data-driven теста route() используем только первые 5 колонок
+10000;false;LOW;false;STANDARD
+10000;true;LOW;false;FAST_TRACK
