@@ -1,0 +1,8 @@
+productId;name;price;quantity;expected
+M01;Monitor 27;32990;2;OK:qty=2
+K01;Keyboard;4490;3;OK:qty=3
+X01;Broken;-100;1;SKIP:price must be > 0
+L01;Lamp;1000;1;OK:qty=1
+L02;Lamp Pro;2000;100;OK:qty=100
+L03;Lamp Max;3000;101;SKIP:quantity must be in [1, 100]
+C01;Cable;500;5;OK:qty=5

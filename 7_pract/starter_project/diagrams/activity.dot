@@ -1,0 +1,43 @@
+digraph G {
+    graph [rankdir=TB, bgcolor="white", pad=0.3, nodesep=0.4, ranksep=0.5];
+    node [shape=box, style="rounded,filled", fontname="Times New Roman", fontsize=11, color="#2F5597", fillcolor="#EAF2F8", margin="0.15,0.1"];
+    edge [fontname="Times New Roman", fontsize=10, color="#555555"];
+
+    start [label="Начало", shape=oval, fillcolor="#E2F0D9", color="#548235"];
+    end [label="Завершение", shape=oval, fillcolor="#FCE4D6", color="#C65911"];
+
+    n1 [label="Создать OrderService и Order", shape=parallelogram, fillcolor="#E4DFEC", color="#7030A0"];
+    n2 [label="Получить Product и quantity", shape=parallelogram, fillcolor="#E4DFEC", color="#7030A0"];
+    
+    n3 [label="Проверить инварианты:\nProduct(id,name,price>0)\nQuantity[1..100]", fillcolor="#FFF2CC", color="#BF9000"];
+    n4 [label="Статус CONFIRMED?", shape=diamond, fillcolor="#FFF2CC", color="#BF9000"];
+    n5 [label="Товар уже есть в заказе?", shape=diamond, fillcolor="#FFF2CC", color="#BF9000"];
+    n6 [label="item.increase(qty)\nили\nitems.add(new Item)", fillcolor="#EAF2F8", color="#2F5597"];
+    n7 [label="Есть еще товары?", shape=diamond, fillcolor="#FFF2CC", color="#BF9000"];
+    
+    n8 [label="Рассчитать total()\n(сумма lineTotal без хранения)", fillcolor="#EAF2F8", color="#2F5597"];
+    n9 [label="Подтвердить заказ:\nне пустой → CONFIRMED", fillcolor="#EAF2F8", color="#2F5597"];
+    
+    err [label="Выбросить исключение\n(IllegalState / IllegalArg)", fillcolor="#FFCCCC", color="#C00000"];
+
+    start -> n1;
+    n1 -> n2;
+    n2 -> n3;
+    n3 -> err [label="Некорректно"];
+    n3 -> n4 [label="Корректно"];
+    
+    n4 -> err [label="Да (R8)"];
+    n4 -> n5 [label="Нет (DRAFT)"];
+    
+    n5 -> n6 [label="Да (R7 merge)"];
+    n5 -> n6 [label="Нет (new item)"];
+    
+    n6 -> n7;
+    n7 -> n2 [label="Да (цикл)"];
+    n7 -> n8 [label="Нет"];
+    
+    n8 -> n9;
+    n9 -> err [label="Пустой (R10)"];
+    n9 -> end [label="Успех"];
+    err -> end;
+}
