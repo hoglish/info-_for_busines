@@ -1,0 +1,24 @@
+digraph C {
+graph [rankdir=TB, bgcolor="white", pad=0.3, nodesep=0.45, ranksep=0.7];
+node [shape=record, style="filled", fontname="Noto Sans", fontsize=12, color="#2F5597", fillcolor="#F7FBFF"];
+edge [fontname="Noto Sans", fontsize=11, color="#555555"];
+sc [label="{SelfCheck|+ main(String[]) : void\l}", fillcolor="#DFF3FD", color="#0070C0"];
+s [label="{DeliveryService|- factory : DeliveryPolicyFactory\l|+ calculate(DeliveryRequest) : double\l+ addLockerCost(DeliveryRequest) : double\l+ static addLockerCost(DeliveryService, DeliveryRequest) : double\l}", fillcolor="#E8F5E9", color="#548235"];
+f [label="{DeliveryPolicyFactory||+ get(DeliveryType) : DeliveryPolicy\l}"];
+p [label="{\<\<interface\>\>\nDeliveryPolicy||+ supports(DeliveryRequest) : boolean\l+ calculateCost(DeliveryRequest) : double\l}"];
+std [label="{StandardCourierPolicy||+ supports(DeliveryRequest) : boolean\l+ calculateCost(DeliveryRequest) : double\l}"];
+exp [label="{ExpressPolicy||+ supports(DeliveryRequest) : boolean\l+ calculateCost(DeliveryRequest) : double\l}"];
+pick [label="{PickupPolicy||+ supports(DeliveryRequest) : boolean\l+ calculateCost(DeliveryRequest) : double\l}"];
+lock [label="{LockerPolicy\nВАРИАНТ 26 (часть А)|+ FIXED_COST : double = 200.0\l|+ supports(DeliveryRequest) : boolean\l+ calculateCost(DeliveryRequest) : double\l}", fillcolor="#E8F5E9", color="#548235"];
+r [label="{\<\<record\>\>\nDeliveryRequest|type : DeliveryType\ldistanceKm : double\lweightKg : double\lorderAmount : double\l}"];
+t [label="{\<\<enum\>\>\nDeliveryType|STANDARD\lEXPRESS\lPICKUP\lLOCKER (вариант 26)\l}"];
+sc -> s [style=dashed, arrowhead=open, label="tests"];
+s -> f [label="1", arrowtail=odiamond, dir=both];
+f -> p [style=dashed, arrowhead=open, label="creates"];
+std -> p [label="implements", arrowhead=empty, style=dashed];
+exp -> p [label="implements", arrowhead=empty, style=dashed];
+pick -> p [label="implements", arrowhead=empty, style=dashed];
+lock -> p [label="implements", arrowhead=empty, style=dashed];
+p -> r [style=dashed, arrowhead=open, label="uses"];
+r -> t [style=dashed, arrowhead=open];
+}

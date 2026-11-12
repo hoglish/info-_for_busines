@@ -1,0 +1,24 @@
+type;distanceKm;weightKg;orderAmount;expected
+# === Корректные запросы ===
+STANDARD;12;4.5;12000;OK:cost=600.0
+STANDARD;5;1.0;500;OK:cost=500.0
+STANDARD;0;1.0;1000;OK:cost=500.0
+EXPRESS;5;1.2;4000;OK:cost=1040.0
+EXPRESS;20;5.0;10000;OK:cost=2100.0
+EXPRESS;0;1.0;2000;OK:cost=1020.0
+PICKUP;0;10;8000;OK:cost=0.0
+PICKUP;50;30;50000;OK:cost=0.0
+# === Границы веса: ровно на лимите допустимо ===
+STANDARD;10;20;5000;OK:cost=500.0
+EXPRESS;10;10;5000;OK:cost=1050.0
+# === Превышение лимита веса ===
+STANDARD;10;25;5000;SKIP:weight exceeds limit
+STANDARD;10;20.01;5000;SKIP:weight exceeds limit
+EXPRESS;5;15;3000;SKIP:weight exceeds limit
+EXPRESS;10;11;5000;SKIP:weight exceeds limit
+# === Нулевой вес ===
+STANDARD;0;0;0;OK:cost=500.0
+# === Вариант 26: LOCKER, фиксированная стоимость 200 ===
+LOCKER;0;1;100;OK:cost=200.0
+LOCKER;300;50;99999;OK:cost=200.0
+LOCKER;12;4.5;12000;OK:cost=200.0

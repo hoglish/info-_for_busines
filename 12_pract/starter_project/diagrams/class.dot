@@ -1,0 +1,13 @@
+digraph C {
+graph [rankdir=TB, bgcolor="white", pad=0.3, nodesep=0.5, ranksep=0.7];
+node [shape=record, style="filled", fontname="Noto Sans", fontsize=12, color="#2F5597", fillcolor="#F7FBFF"];
+edge [fontname="Noto Sans", fontsize=11, color="#555555"];
+sc [label="{SelfCheck|+ main(String[]) : void\l}", fillcolor="#DFF3FD", color="#0070C0"];
+a [label="{SalesAnalyticsService|+ LARGE_DEAL_THRESHOLD : double = 100000\l+ COMMISSION_PERCENT : double = 20  (вариант 3)\l+ BY_AMOUNT_DESC_THEN_ID : Comparator\<Sale\>\l|+ topSales(List, double, int) : List\<Sale\>\l+ maxSale(List) : Optional\<Sale\>\l+ totalsByManager(List) : Map\<String,Double\>\l+ averageByRegion(List, String) : double\l+ largeSales(List) : List\<Sale\>\l+ commissionByManager(List) : Map\<String,Double\>  (вариант 3)\l- isLarge(Sale) : boolean\l- requireSales(List) : void\l}", fillcolor="#E8F5E9", color="#548235"];
+l [label="{SaleCsvLoader|+ load(Path) : List\<Sale\>\l~ parse(List\<String\>) : List\<Sale\>\l}"];
+s [label="{\<\<record\>\>\nSale|id : String\lmanager : String\lregion : String\lamount : double\l}"];
+sc -> a [style=dashed, arrowhead=open, label="tests"];
+sc -> l [style=dashed, arrowhead=open, label="loads sample.csv"];
+a -> s [style=dashed, arrowhead=open, label="processes 0..*"];
+l -> s [style=dashed, arrowhead=open, label="creates 0..*"];
+}

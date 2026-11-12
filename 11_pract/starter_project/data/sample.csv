@@ -1,0 +1,24 @@
+inn;name;email;website;expected
+# === Корректные записи ===
+1234567890;Иван Иванов;ivan@example.com;https://example.com;OK
+123456789012;Петрова Анна;anna@example.com;http://anna.ru/about;OK
+9876543210;Сидоров Пётр;petr@example.com;https://petr.org;OK
+# === Ошибка: ИНН 11 цифр (R3) ===
+12345678901;Короткий ИНН;short@example.com;https://short.com;ERR:10 или 12 цифр
+# === Ошибка: ИНН с буквами (R3) ===
+12345abc90;Буквы ИНН;letters@example.com;https://letters.com;ERR:только цифры
+# === Ошибка: email без @ (R4) ===
+1111111111;Без Собаки;no_at_sign;https://nosign.com;ERR:должен содержать @
+# === Ошибка: email с пустой левой частью (R4) ===
+2222222222;Пустой Email;@example.com;https://empty.com;ERR:пустая левая часть
+# === Дубликат ИНН (R8) ===
+1234567890;Дубль ИНН;ivan2@example.com;https://dup.com;ERR:дубликат ИНН
+# === Ошибка: 3 поля вместо 4 (R2) ===
+3333333333;Только Три Поля;three@example.com;ERR:ожидается 4 поля
+# === Продолжение импорта после ошибок (R6) ===
+5555555555;После Ошибки;after@example.com;https://after.com;OK
+# === Вариант 26: поле website ===
+6666666666;Без Схемы;site@example.com;example.com;ERR:должен начинаться с http
+6666666667;Пустой Сайт;site@example.com;;ERR:website не должен быть пустым
+6666666668;Только Схема;site@example.com;https://;ERR:не указан домен
+6666666669;Домен С Портом;site@example.com;http://host.ru:8080/x;OK

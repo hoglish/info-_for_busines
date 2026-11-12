@@ -1,0 +1,23 @@
+digraph C {
+graph [rankdir=TB, bgcolor="white", pad=0.3, nodesep=0.5, ranksep=0.7];
+node [shape=record, style="filled", fontname="Noto Sans", fontsize=12, color="#2F5597", fillcolor="#F7FBFF"];
+edge [fontname="Noto Sans", fontsize=11, color="#555555"];
+sc [label="{SelfCheck|+ main(String[]) : void\l}", fillcolor="#DFF3FD", color="#0070C0"];
+i [label="{ClientImporter|- parser : ClientCsvParser\l- validator : ClientValidator\l- repository : ClientRepository\l|+ importFile(Path) : ImportResult\l+ processLine(String, int, ImportResult) : void\l}", fillcolor="#E8F5E9", color="#548235"];
+p [label="{ClientCsvParser|+ DELIMITER : String = \";\"\l+ FIELD_COUNT : int = 4\l|+ parse(String, int) : ClientDraft\l}"];
+v [label="{ClientValidator|+ validate(ClientDraft) : List\<String\>\l+ addWebsiteDomain(String) : String  (вариант 26, Б)\l- checkInn / checkEmail / checkWebsite\l}", fillcolor="#E8F5E9", color="#548235"];
+r [label="{ClientRepository|+ save(Client) : void\l+ findByInn(String) : Client\l}"];
+res [label="{ImportResult|- accepted : int\l- errors : List\<ImportError\>\l|+ addAccepted() : void\l+ addError(ImportError) : void\l+ accepted() : int\l+ rejected() : int\l+ errorMessages() : List\<String\>\l}"];
+d [label="{\<\<record\>\>\nClientDraft|inn, name, email, website\l}"];
+c [label="{\<\<record\>\>\nClient|inn, name, email,\lwebsite (вариант 26, А)\l}", fillcolor="#E8F5E9", color="#548235"];
+e [label="{\<\<record\>\>\nImportError|lineNumber : int\lmessage : String\l|+ format() : String\l}"];
+sc -> i [style=dashed, arrowhead=open, label="tests"];
+i -> p [label="1", arrowtail=odiamond, dir=both];
+i -> v [label="1", arrowtail=odiamond, dir=both];
+i -> r [label="1", arrowtail=odiamond, dir=both];
+i -> res [style=dashed, arrowhead=open, label="returns"];
+p -> d [style=dashed, arrowhead=open, label="creates"];
+v -> d [style=dashed, arrowhead=open, label="checks"];
+r -> c [label="0..*", arrowtail=diamond, dir=both];
+res -> e [label="0..*", arrowtail=diamond, dir=both];
+}

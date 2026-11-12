@@ -1,0 +1,9 @@
+id;manager;region;amount
+S1;Ivanov;Moscow;150000
+S2;Petrova;SPb;92000
+S3;Ivanov;Moscow;240000
+S4;Lee;Kazan;45000
+# === добавлено: равные суммы (ничья при поиске максимума) и граница крупной сделки ===
+S5;Petrova;SPb;240000
+S6;Lee;Kazan;100000
+S7;Ivanov;SPb;0
